@@ -92,8 +92,11 @@ hooksecurefunc( GameTooltip, 'SetCraftItem',
 --They are called after ontooltipsetitem
 hooksecurefunc (GameTooltip, "SetBagItem",
   function(tip, bag, slot)
-    local _, num = GetContainerItemInfo(bag, slot);
-    Atr_ShowTipWithPricing(tip, num)
+    local name = C_Container.GetContainerItemLink(bag, slot);
+    if (name) then
+      local num = C_Container.GetContainerItemInfo(bag, slot).stackCount;
+      Atr_ShowTipWithPricing (tip, num);
+    end
   end
 );
 
@@ -635,9 +638,6 @@ function Atr_ShowTipWithPricing (tip, num)
         --return from this function without displaying anything, num is bad
         return
       end
-    else
-      -- spacing for first render (num is nil)
-      tip:AddLine(" ")
     end
 
     local vendorPrice, auctionPrice, dePrice, auctionWeekPrice, auctionMonthPrice = Atr_STWP_GetPrices (itemLink, num, itemVendorPrice, itemName, classID, itemRarity, itemLevel);

@@ -427,7 +427,7 @@ function Atr_ShowFullScanFrame()
   Atr_FullScanResults:Hide();
 
   Atr_FullScanFrame:Show();
-  Atr_FullScanFrame:SetBackdropColor(0,0,0,100);
+  Atr_FullScanFrame:SetBackdropColor(0,0,0,1);
 
   Atr_UpdateFullScanFrame();
   Atr_FullScanStatus:SetText ("");
@@ -442,7 +442,7 @@ function Atr_ShowFullScanFrame()
 
 
   Atr_FullScanHTML:SetText (expText);
-  Atr_FullScanHTML:SetSpacing (3);
+  Atr_FullScanHTML:SetSpacing ("P", 3);
 end
 
 -----------------------------------------

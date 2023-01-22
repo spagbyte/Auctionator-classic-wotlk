@@ -102,7 +102,8 @@ function Atr_SetupOptionsFrame()
           ;
 
   AuctionatorDescriptionHTML:SetText (expText);
-  AuctionatorDescriptionHTML:SetSpacing (3);
+  --AuctionatorDescriptionHTML:SetSpacing (3);
+  AuctionatorDescriptionHTML:SetSpacing ("P", 3);
 
   AuctionatorVersionText:SetText (ZT("Version")..": "..AuctionatorVersion);
 

@@ -971,14 +971,14 @@ function Atr_ScanBags (mats, gear)
 
   for bagID = 0, NUM_BAG_SLOTS do
 
-    local numslots = GetContainerNumSlots (bagID);
+    local numslots = C_Container.GetContainerNumSlots (bagID);
 
     for slotID = 1,numslots do
 
-      local itemLink = GetContainerItemLink(bagID, slotID);
+      local itemLink = C_Container.GetContainerItemLink(bagID, slotID);
 
       if (itemLink) then
-        local texture, itemCount, locked, quality = GetContainerItemInfo(bagID, slotID);
+        local texture, itemCount, locked, quality = C_Container.GetContainerItemInfo(bagID, slotID);
 
         local itemName, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, itemClassID, itemSubClassID = GetItemInfo( itemLink )
         local itemLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
@@ -1493,7 +1493,9 @@ function Atr_SellItemButton_OnEvent (self, event, ...)
 
   if ( event == "NEW_AUCTION_UPDATE") then
     local name, texture, count, quality, canUse, price = GetAuctionSellItemInfo();
-    Atr_SellControls_Tex:SetNormalTexture(texture);
+    if (texture) then
+      Atr_SellControls_Tex:SetNormalTexture(texture);
+    end
   end
 
 end
@@ -1514,7 +1516,7 @@ local function Atr_LoadContainerItemToSellPane(slot)
     gAutoSingleton = time();
   end
 
-  PickupContainerItem(bagID, slotID);
+  C_Container.PickupContainerItem(bagID, slotID);
 
   local infoType = GetCursorInfo()
 
@@ -4058,15 +4060,15 @@ function Atr_GetNumItemInBags (targItemLink)
   for b = 1, #kBagIDs do
     bagID = kBagIDs[b];
 
-    numslots = GetContainerNumSlots (bagID);
+    numslots = C_Container.GetContainerNumSlots (bagID);
     for slotID = 1,numslots do
-      local itemLink = GetContainerItemLink(bagID, slotID);
+      local itemLink = C_Container.GetContainerItemLink(bagID, slotID);
       if (itemLink) then
         local itemName, isBattlePet = zc.ItemNamefromLink (itemLink)
 
         if (itemName == targItemName and isBattlePet == targIsBattlePet) then
 
-          local _, itemCount  = GetContainerItemInfo(bagID, slotID)
+          local itemCount  = C_Container.GetContainerItemInfo(bagID, slotID).stackCount;
           numItems = numItems + itemCount;
         end
       end
